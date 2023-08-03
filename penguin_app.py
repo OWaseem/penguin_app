@@ -52,8 +52,8 @@ rf_clf = RandomForestClassifier(n_jobs = -1)
 rf_clf.fit(X_train, y_train)
 rf_clf_score = rf_clf.score(X_train, y_train)
 
-def prediction( model, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex):
-	penguins = model.predict([[island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex]])
+def prediction( model, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, island):
+	penguins = model.predict([[bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, island]])
 	penguins = penguins[0]
 	if penguins == 0:
 		return "Adelie"
@@ -68,8 +68,8 @@ bill_length_mm = st.sidebar.slider("Bill Length", float(df['bill_length_mm'].min
 bill_depth_mm = st.sidebar.slider("Bill Depth", float(df['bill_depth_mm'].min()), float(df['bill_depth_mm'].max()))
 flipper_length_mm = st.sidebar.slider("Flipper Length", float(df['flipper_length_mm'].min()), float(df['flipper_length_mm'].max()))
 body_mass_g = st.sidebar.slider("Body Mass", float(df['body_mass_g'].min()), float(df['body_mass_g'].max()))
-sex = st.sidebar.slider("Sex", float(df['sex'].min()), float(df['sex'].max()))
-island = st.sidebar.slider("Island", float(df['island'].min()), float(df['island'].max()))
+sex = st.sidebar.selectbox("Sex", [0, 1])
+island = st.sidebar.selectbox("Island", [0, 1, 2])
 
 classifier = st.sidebar.selectbox("Classifier", ['SupportVectorClassifier', 'LogisticRegression', 'RandomForestClassifier'])
 
